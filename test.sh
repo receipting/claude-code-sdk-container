@@ -19,9 +19,9 @@ set -a
 source .env
 set +a
 
-# Check if tokens are set
-if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
-    echo "Error: CLAUDE_CODE_OAUTH_TOKEN not set in .env"
+# Check if tokens are set (either OAuth or API key)
+if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ] && [ -z "$ANTHROPIC_API_KEY" ]; then
+    echo "Error: Either CLAUDE_CODE_OAUTH_TOKEN or ANTHROPIC_API_KEY must be set in .env"
     exit 1
 fi
 
