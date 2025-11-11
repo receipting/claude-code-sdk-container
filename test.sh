@@ -19,9 +19,10 @@ set -a
 source .env
 set +a
 
-# Check if tokens are set
-if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
-    echo "Error: CLAUDE_CODE_OAUTH_TOKEN not set in .env"
+# Check if tokens are set (either API key or OAuth token)
+if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ] && [ -z "$ANTHROPIC_API_KEY" ]; then
+    echo "Error: Neither CLAUDE_CODE_OAUTH_TOKEN nor ANTHROPIC_API_KEY set in .env"
+    echo "You must set at least one of these authentication credentials."
     exit 1
 fi
 
@@ -61,7 +62,7 @@ fi
 if echo "$HEALTH_RESPONSE" | grep -q '"status":"healthy"'; then
     echo "Health check passed"
 else
-    echo "Health check unhealthy - check CLAUDE_CODE_OAUTH_TOKEN"
+    echo "Health check unhealthy - check ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN"
 fi
 
 echo "Testing query endpoint..."
