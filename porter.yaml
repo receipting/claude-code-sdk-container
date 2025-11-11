@@ -1,0 +1,46 @@
+# Porter Configuration for Claude Agent SDK Container
+# See: https://docs.porter.run/deploy/configuration-as-code
+
+name: claude-agent-sdk-container
+services:
+  - name: web
+    type: web
+    run:
+      command: ./docker-entrypoint.sh
+    ports:
+      - port: 8080
+        protocol: http
+    healthCheck:
+      enabled: true
+      httpPath: /health
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 3
+    env:
+      - name: PORT
+        value: '8080'
+      # Required: Anthropic API Key
+      - name: ANTHROPIC_API_KEY
+        value: '${ANTHROPIC_API_KEY}'
+      # Optional: API Key for REST endpoint protection
+      - name: CLAUDE_AGENT_SDK_CONTAINER_API_KEY
+        value: '${CLAUDE_AGENT_SDK_CONTAINER_API_KEY}'
+      # Required: GitHub OAuth Configuration
+      - name: GITHUB_CLIENT_ID
+        value: '${GITHUB_CLIENT_ID}'
+      - name: GITHUB_CLIENT_SECRET
+        value: '${GITHUB_CLIENT_SECRET}'
+      # Required: GitHub Access Control (at least one must be set)
+      - name: ALLOWED_GITHUB_USERS
+        value: '${ALLOWED_GITHUB_USERS}'
+      # Optional: GitHub Organization (alternative to ALLOWED_GITHUB_USERS)
+      - name: ALLOWED_GITHUB_ORG
+        value: '${ALLOWED_GITHUB_ORG}'
+      # Optional: JWT Session Secret (auto-generated if not provided)
+      - name: SESSION_SECRET
+        value: '${SESSION_SECRET}'
+      # Optional: Allow local development (not recommended for production)
+      - name: ALLOW_LOCAL
+        value: 'false'

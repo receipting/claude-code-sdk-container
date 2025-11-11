@@ -13,33 +13,39 @@ Since you're here, we expect you already have Claude Code installed and are lovi
 ## ✨ Features
 
 ### 🌐 **Dual Access Modes**
+
 - **Web CLI Interface**: Interactive browser-based terminal with real-time streaming
 - **REST API**: Programmatic access for applications and integrations
 
 ### 🔐 **Security & Access Control**
+
 - **GitHub OAuth Authentication**: Simple one-click GitHub login for web CLI
 - **API Key Protection**: Secure REST API access with configurable API keys
 - **GitHub Allowlisting**: Control web CLI access by GitHub usernames or organizations
 - **JWT Session Management**: Secure cookie-based sessions with expiration
 
 ### 🔧 **GitHub Integration**
+
 - **OAuth2 Flow**: Standard GitHub OAuth for seamless authentication
 - **Organization Support**: Restrict access by GitHub organization membership
 - **User Allowlists**: Fine-grained control with specific GitHub usernames
 
 ### 🚀 **Production Ready**
+
 - **Docker-First**: Optimized multi-stage build for cloud deployment
 - **Health Monitoring**: Built-in health checks and status endpoints
 - **Graceful Shutdown**: Proper signal handling for container orchestration
 - **Comprehensive Logging**: Detailed startup and access control logging
 
 ### 🔒 **Security First**
+
 - **Automated Security Audit**: First-run scan for malicious code and vulnerabilities
 - **Supply Chain Protection**: Detects compromised npm packages and Dockerfile attacks
 - **Secret Detection**: Prevents hardcoded credentials in containers
 - **Best Practices**: Follows security patterns (non-root user, minimal attack surface)
 
 ### 🛠️ **Developer Experience**
+
 - **Real-time Streaming**: Character-by-character CLI response streaming
 - **Multiple Models**: Support for Claude Sonnet 4.5 and Opus 4.1
 - **Multi-Agent System**: Built-in example with Canadian 🍁 and Australian 🇦🇺 agents
@@ -49,6 +55,7 @@ Since you're here, we expect you already have Claude Code installed and are lovi
 ## 🚀 Quick Setup (4 Steps!)
 
 ### Step 1: Clone and Open with Claude Code
+
 ```bash
 git clone https://github.com/receipting/claude-agent-sdk-container
 cd claude-agent-sdk-container
@@ -74,6 +81,7 @@ You've just opened a repository from GitHub.
 **Tell Claude**: `Please perform the security audit for this repository`
 
 Claude will spawn an AI-powered agent that intelligently analyzes:
+
 - ✅ `package.json` for malicious install scripts and obfuscated code
 - ✅ `Dockerfile` for security antipatterns (curl | bash, hardcoded secrets)
 - ✅ Source code for hardcoded secrets, backdoors, and suspicious patterns
@@ -92,6 +100,7 @@ Claude will tell you to run the setup script in a **separate terminal window**:
 ```
 
 **The script automatically handles:**
+
 1. ✅ Enter your Anthropic API key (from https://console.anthropic.com/settings/keys)
 2. ✅ Creating a unique GitHub App with one click (opens browser to GitHub)
    - Auto-generates unique name like `claude-agent-sdk-202510052056`
@@ -101,6 +110,7 @@ Claude will tell you to run the setup script in a **separate terminal window**:
 5. ✅ Writing all credentials to `.env` file
 
 **What you'll do:**
+
 - Paste your Anthropic API key from the console
 - Click "Create GitHub App" in browser (literally one click!)
 - Press Enter to accept your username in allowlist (or add more users)
@@ -117,6 +127,7 @@ Please run ./test.sh
 ```
 
 Claude will:
+
 - ✅ Build the Docker container
 - ✅ Run the container with your `.env` credentials
 - ✅ Test all endpoints
@@ -141,6 +152,7 @@ Once Claude confirms the application is running, open your browser to:
 This repository includes an intelligent Claude Code hook that guides you through setup:
 
 **Setup Status Hook** (`UserPromptSubmit`):
+
 - Reminds you to run the security audit (optional but recommended)
 - Checks if `.env` is configured
 - Verifies Docker image is built
@@ -197,16 +209,19 @@ EOF
 ```
 
 **Required:**
+
 - **ANTHROPIC_API_KEY**: Your Anthropic API key from https://console.anthropic.com/settings/keys
 - **CLAUDE_AGENT_SDK_CONTAINER_API_KEY**: API key for REST endpoint protection
 - **GITHUB_CLIENT_ID**: GitHub OAuth App Client ID
 - **GITHUB_CLIENT_SECRET**: GitHub OAuth App Client Secret
 
 **Required GitHub Access Control (for security):**
+
 - **ALLOWED_GITHUB_USERS**: Comma-separated list of GitHub usernames allowed to access web CLI
 - **ALLOWED_GITHUB_ORG**: GitHub organization name (users from this org can access web CLI)
 
 **GitHub Access Behavior:**
+
 - **At least one allowlist must be configured** - the container will not start without proper access control
 - You must set either `ALLOWED_GITHUB_USERS` or `ALLOWED_GITHUB_ORG` (or both)
 - This prevents unauthorized access to your Claude instance
@@ -214,11 +229,13 @@ EOF
 ### Manual Step 4: Run the app
 
 Tell Claude Code:
+
 ```
 Please build the Docker container, run it, and verify it's working
 ```
 
 Or run manually:
+
 ```bash
 ./test.sh
 ```
@@ -232,11 +249,13 @@ Or run manually:
 Once setup completes, you'll have:
 
 **🌐 Web CLI Interface** at `http://localhost:8080`
+
 - Sign in with your GitHub account (one-click OAuth)
 - Real-time streaming terminal interface
 - Full conversational context maintained across messages
 
 **🔧 REST API** at `http://localhost:8080/query`
+
 - Secure API key authentication
 - Built-in multi-agent collaboration system
 - Easy integration with any application
@@ -244,6 +263,7 @@ Once setup completes, you'll have:
 ### Try the Multi-Agent System
 
 Test the built-in Canadian 🍁 and Australian 🇦🇺 agents:
+
 ```bash
 curl -X POST http://localhost:8080/query \
   -H "Content-Type: application/json" \
@@ -275,12 +295,198 @@ You'll see both agents discuss your request and provide their unique perspective
 | Fly.io               | Machines / Launch                    | [Deploy with a Dockerfile](https://fly.io/docs/languages-and-frameworks/dockerfile/)                                                                                                                                                            |
 | Railway              | Services                             | [Build from a Dockerfile](https://docs.railway.com/guides/dockerfiles)                                                                                                                                                                          |
 | Render               | Web Services                         | [Docker on Render](https://render.com/docs/docker)                                                                                                                                                                                              |
+| Porter               | Web Services                         | [Deploy from GitHub Repository](https://docs.porter.run/deploy/deploy-from-github-repo) • [See Porter deployment guide below](#deploying-on-porter)                                                                                             |
 | DigitalOcean         | App Platform                         | [How to deploy from container images](https://docs.digitalocean.com/products/app-platform/how-to/deploy-from-container-images/)                                                                                                                 |
 | Heroku               | Container Registry & Runtime         | [Container Registry & Runtime (Docker Deploys)](https://devcenter.heroku.com/articles/container-registry-and-runtime)                                                                                                                           |
 | Kubernetes (generic) | —                                    | [Using kubectl to create a Deployment](https://kubernetes.io/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)                                                                                                                         |
 
-
 </details>
+
+## 🚀 Deploying on Porter
+
+Porter makes it easy to deploy this containerized application to your GCP account. Follow these steps:
+
+### Prerequisites
+
+- ✅ GCP account connected to Porter (you mentioned you already have this!)
+- ✅ GitHub repository with this code (or fork [this repo](https://github.com/receipting/claude-agent-sdk-container))
+- ✅ GitHub App credentials (from `./setup-api-key.sh` or manual setup)
+- ✅ Anthropic API key from [console.anthropic.com](https://console.anthropic.com/settings/keys)
+
+### Step 1: Install Porter GitHub App
+
+1. Go to your Porter dashboard
+2. Navigate to **Account Settings** → **GitHub Integration**
+3. Install the Porter GitHub App and grant access to your repository
+
+### Step 2: Create New Application
+
+1. In Porter dashboard, click **Create New Application**
+2. Select **Deploy from GitHub Repository**
+3. Choose your repository: `claude-agent-sdk-container` (or your fork)
+4. Select branch: `main` (or your preferred branch)
+5. Set **Root Path**: `./` (default - this is correct for this repo)
+
+### Step 3: Configure Build Settings
+
+Porter will automatically detect the `Dockerfile` and use Docker build method. You can verify in **Configure Build Settings**:
+
+- **Build Method**: Docker
+- **Dockerfile Path**: `./Dockerfile` (default)
+- **Build Context**: `./` (default)
+
+### Step 4: Add Web Service
+
+1. In **Add Application Services**, click **Add Service**
+2. Select **Web** service type
+3. Configure the service:
+   - **Name**: `web`
+   - **Port**: `8080`
+   - **HTTP Path**: `/` (serves the web CLI)
+   - **Health Check**: Enable
+     - **Health Check Path**: `/health`
+     - **Initial Delay**: `10` seconds
+     - **Period**: `10` seconds
+     - **Timeout**: `5` seconds
+
+### Step 5: Add Environment Variables
+
+Add all required environment variables in **Environment Variables** section:
+
+**Required Variables:**
+
+```bash
+# Anthropic API Key (get from https://console.anthropic.com/settings/keys)
+ANTHROPIC_API_KEY=sk-ant-api03-YOUR-API-KEY-HERE
+
+# GitHub OAuth Configuration (from your GitHub App setup)
+GITHUB_CLIENT_ID=your_github_app_client_id
+GITHUB_CLIENT_SECRET=your_github_app_client_secret
+
+# GitHub Access Control (REQUIRED - choose at least one)
+ALLOWED_GITHUB_USERS=your-github-username,other-user
+# OR
+ALLOWED_GITHUB_ORG=your-organization-name
+```
+
+**Optional Variables:**
+
+```bash
+# API Key for REST endpoint protection (recommended)
+CLAUDE_AGENT_SDK_CONTAINER_API_KEY=your-secure-random-api-key
+
+# JWT Session Secret (auto-generated if not provided)
+SESSION_SECRET=your-random-secret-here
+
+# Server Port (default: 8080)
+PORT=8080
+```
+
+**💡 Tip:** Use Porter's **Environment Groups** feature to manage environment variables across multiple environments (staging, production, etc.).
+
+### Step 6: Configure Health Checks
+
+Porter will automatically configure health checks based on the `porter.yaml` file, but you can verify:
+
+- **Health Check Enabled**: ✅ Yes
+- **Path**: `/health`
+- **Expected Response**: JSON with `"status": "healthy"`
+
+### Step 7: Deploy!
+
+1. Click **Deploy App** button
+2. Porter will:
+
+   - Build your Docker image from the GitHub repository
+   - Push it to Porter's container registry
+   - Deploy to your GCP cluster
+   - Set up load balancing and HTTPS
+   - Configure health checks
+
+3. **Authorize GitHub Actions**: Porter will prompt you to authorize creating a GitHub Actions workflow file. This enables automatic deployments on every push to your branch.
+
+### Step 8: Access Your Application
+
+Once deployed, Porter will provide:
+
+- **Public URL**: `https://your-app-name.porter.run` (or your custom domain)
+- **Web CLI**: Visit the URL in your browser and sign in with GitHub
+- **REST API**: `https://your-app-name.porter.run/query`
+
+### Using porter.yaml (Configuration as Code)
+
+This repository includes a `porter.yaml` file for Configuration as Code. If you prefer to manage configuration via YAML:
+
+1. The `porter.yaml` file is already in the repository
+2. Porter will automatically detect and use it
+3. You can still override settings in the Porter UI if needed
+
+**Benefits of porter.yaml:**
+
+- ✅ Version control your infrastructure configuration
+- ✅ Consistent deployments across environments
+- ✅ Easy to review changes in pull requests
+- ✅ Reproducible deployments
+
+### Updating Your Deployment
+
+**Automatic Deployments:**
+
+- Every push to your source branch triggers a new deployment
+- Porter builds a new Docker image and deploys it
+- Zero-downtime deployments with health checks
+
+**Manual Updates:**
+
+- Go to your application in Porter dashboard
+- Click **Redeploy** to trigger a new build
+- Or update environment variables and click **Save**
+
+### Troubleshooting Porter Deployment
+
+| Issue                            | Solution                                                                                                            |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Build fails**                  | Check build logs in Porter dashboard. Common issues: missing dependencies, Dockerfile errors                        |
+| **Health check failing**         | Verify `/health` endpoint returns `{"status": "healthy"}`. Check environment variables are set correctly            |
+| **GitHub OAuth not working**     | Verify `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` are correct. Update GitHub App callback URL to your Porter URL |
+| **"GitHub user not authorized"** | Check `ALLOWED_GITHUB_USERS` or `ALLOWED_GITHUB_ORG` includes your GitHub username/organization                     |
+| **Container crashes on startup** | Check application logs in Porter. Usually missing required environment variables                                    |
+
+### Porter-Specific Features
+
+**Environment Groups:**
+
+- Create separate environment groups for staging/production
+- Share common variables across environments
+- Override per-environment as needed
+
+**Custom Domains:**
+
+- Add your custom domain in Porter dashboard
+- Porter automatically provisions SSL certificates
+- Update GitHub App callback URL to match your domain
+
+**Autoscaling:**
+
+- Configure autoscaling based on CPU/memory usage
+- Set min/max replicas for high availability
+- Porter handles load balancing automatically
+
+**Monitoring & Logs:**
+
+- View real-time logs in Porter dashboard
+- Set up alerts for health check failures
+- Monitor resource usage and costs
+
+### Next Steps
+
+- ✅ Test the web CLI at your Porter URL
+- ✅ Test the REST API with a curl command
+- ✅ Set up a custom domain (optional)
+- ✅ Configure autoscaling for production workloads
+- ✅ Set up monitoring alerts
+
+**🎉 Congratulations!** Your Claude Agent SDK is now running on Porter with automatic deployments, health checks, and HTTPS!
 
 <details>
 <summary>📚 Full Manual Instructions (if you really want to do it yourself)</summary>
@@ -288,6 +494,7 @@ You'll see both agents discuss your request and provide their unique perspective
 ## Manual Setup
 
 ### Prerequisites
+
 - Docker installed on your machine
 - Claude Code OAuth token from setup above
 
@@ -343,6 +550,7 @@ curl -X POST http://localhost:8080/query \
 ## API Usage
 
 ### Authentication
+
 The `/query` endpoint requires an API key. You can provide it in two ways:
 
 ```bash
@@ -356,11 +564,13 @@ curl -H "Authorization: Bearer your-api-key-here"
 The health check endpoint (`/health`) is public and doesn't require authentication.
 
 ### Health Check (No Auth Required)
+
 ```bash
 GET http://localhost:8080/health
 ```
 
 Returns:
+
 ```json
 {
   "status": "healthy",
@@ -372,6 +582,7 @@ Returns:
 ```
 
 ### Query Claude (Auth Required)
+
 ```bash
 POST http://localhost:8080/query
 Content-Type: application/json
@@ -386,6 +597,7 @@ X-API-Key: your-api-key-here
 ```
 
 Returns:
+
 ```json
 {
   "success": true,
@@ -408,57 +620,61 @@ services:
     image: claude-code-$(basename "$(pwd)")
     container_name: claude-code-$(basename "$(pwd)")
     ports:
-      - "8080:8080"
+      - '8080:8080'
     environment:
       - CLAUDE_CODE_OAUTH_TOKEN=${CLAUDE_CODE_OAUTH_TOKEN}
     restart: unless-stopped
 ```
 
 Then run:
+
 ```bash
 docker-compose up -d
 ```
 
 ## Environment Variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `ANTHROPIC_API_KEY` | Yes* | Your Anthropic API key from https://console.anthropic.com/settings/keys |
-| `CLAUDE_CODE_OAUTH_TOKEN` | Yes* | Alternative: Claude Code OAuth token (requires Anthropic permission) |
-| `CLAUDE_AGENT_SDK_CONTAINER_API_KEY` | No** | API key for endpoint authentication |
-| `GITHUB_CLIENT_ID` | Yes*** | GitHub App Client ID |
-| `GITHUB_CLIENT_SECRET` | Yes*** | GitHub App Client Secret |
-| `ALLOWED_GITHUB_USERS` | Yes**** | Comma-separated list of allowed GitHub usernames |
-| `ALLOWED_GITHUB_ORG` | Yes**** | GitHub organization name for access control |
-| `SESSION_SECRET` | No | JWT signing secret (generate with: `openssl rand -hex 32`) |
-| `PORT` | No | Server port (default: 8080) |
+| Variable                             | Required    | Description                                                             |
+| ------------------------------------ | ----------- | ----------------------------------------------------------------------- |
+| `ANTHROPIC_API_KEY`                  | Yes\*       | Your Anthropic API key from https://console.anthropic.com/settings/keys |
+| `CLAUDE_CODE_OAUTH_TOKEN`            | Yes\*       | Alternative: Claude Code OAuth token (requires Anthropic permission)    |
+| `CLAUDE_AGENT_SDK_CONTAINER_API_KEY` | No\*\*      | API key for endpoint authentication                                     |
+| `GITHUB_CLIENT_ID`                   | Yes\*\*\*   | GitHub App Client ID                                                    |
+| `GITHUB_CLIENT_SECRET`               | Yes\*\*\*   | GitHub App Client Secret                                                |
+| `ALLOWED_GITHUB_USERS`               | Yes\*\*\*\* | Comma-separated list of allowed GitHub usernames                        |
+| `ALLOWED_GITHUB_ORG`                 | Yes\*\*\*\* | GitHub organization name for access control                             |
+| `SESSION_SECRET`                     | No          | JWT signing secret (generate with: `openssl rand -hex 32`)              |
+| `PORT`                               | No          | Server port (default: 8080)                                             |
 
-*Either `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN` must be set. Use `ANTHROPIC_API_KEY` (recommended).
-**If `CLAUDE_AGENT_SDK_CONTAINER_API_KEY` is not set, the `/query` endpoint will be publicly accessible.
-***Required only for web CLI access. REST API works without GitHub App authentication.
-****At least one of `ALLOWED_GITHUB_USERS` or `ALLOWED_GITHUB_ORG` must be set for security.
+\*Either `ANTHROPIC_API_KEY` or `CLAUDE_CODE_OAUTH_TOKEN` must be set. Use `ANTHROPIC_API_KEY` (recommended).
+**If `CLAUDE_AGENT_SDK_CONTAINER_API_KEY` is not set, the `/query` endpoint will be publicly accessible. \***Required only for web CLI access. REST API works without GitHub App authentication.
+\*\*\*\*At least one of `ALLOWED_GITHUB_USERS` or `ALLOWED_GITHUB_ORG` must be set for security.
 
 ### Alternative: OAuth Token Authentication (Requires Anthropic Permission)
 
 If you have prior approval from Anthropic to use Claude Code OAuth tokens, you can use the OAuth setup approach:
 
 **Prerequisites:**
+
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
 
 **Setup:**
+
 ```bash
 ./setup-tokens.sh
 ```
 
 This script will:
+
 - Get your Claude OAuth token via `claude setup-token`
 - Set up GitHub App
 - Configure access control
 - Write credentials to `.env`
 
 **Manual OAuth Setup:**
+
 ```bash
 # Get OAuth token
 claude setup-token
@@ -487,12 +703,14 @@ ALLOWED_GITHUB_ORG=mycompany
 ```
 
 **Access Control Behavior:**
+
 - **At least one allowlist must be configured** - the container will not start without proper access control
 - **Case insensitive**: GitHub usernames are normalized to lowercase
 - **Organization check**: Currently checks user's public company field (basic implementation)
 - **Error response**: Unauthorized users receive `GitHub user not authorized`
 
 **Examples:**
+
 ```bash
 # Organization-only access
 ALLOWED_GITHUB_ORG=mycompany
@@ -531,6 +749,7 @@ curl -X POST http://localhost:8080/query \
 The agents will discuss the request, each providing their unique cultural perspective, followed by a synthesized recommendation combining both viewpoints.
 
 ### Python
+
 ```python
 import requests
 
@@ -541,20 +760,22 @@ print(response.json()['response'])
 ```
 
 ### JavaScript
+
 ```javascript
 const response = await fetch('http://localhost:8080/query', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'X-API-Key': 'your-api-key-here'
+    'X-API-Key': 'your-api-key-here',
   },
-  body: JSON.stringify({ prompt: 'Write a haiku about coding' })
-});
-const data = await response.json();
-console.log(data.response);
+  body: JSON.stringify({ prompt: 'Write a haiku about coding' }),
+})
+const data = await response.json()
+console.log(data.response)
 ```
 
 ### cURL
+
 ```bash
 curl -X POST http://localhost:8080/query \
   -H "Content-Type: application/json" \
@@ -579,6 +800,7 @@ The multi-agent implementation is in `server.ts` (lines 197-220). To customize:
 **Example: Adding Your Own Agent**
 
 Edit `server.ts` and add to the `agents` object:
+
 ```typescript
 agents: {
   canadian_agent: { /* existing */ },
@@ -594,19 +816,22 @@ Keep your responses concise (2-3 sentences) and always make it clear you're the 
 ```
 
 Then update the `coordinatedPrompt` to include your new agent:
+
 ```typescript
 const coordinatedPrompt = `The user has sent this request: "${prompt}"
 
-Please coordinate with the canadian_agent, australian_agent, and your_custom_agent subagents...`;
+Please coordinate with the canadian_agent, australian_agent, and your_custom_agent subagents...`
 ```
 
 **How It Works:**
+
 - The coordinator agent receives the user's query
 - Uses Claude's Task tool to delegate to each subagent
 - Each subagent provides their unique perspective
 - Coordinator synthesizes all responses into a comprehensive answer
 
 **Example Personalities to Try:**
+
 - 🇬🇧 British agent (proper, witty, tea-enthusiast)
 - 🇩🇪 German agent (efficient, precise, engineering-focused)
 - 🇮🇹 Italian agent (passionate, expressive, food-oriented)
@@ -616,6 +841,7 @@ Please coordinate with the canadian_agent, australian_agent, and your_custom_age
 ## Troubleshooting
 
 ### Quick Debug Checklist
+
 ```bash
 # 1. Is container running?
 docker ps | grep claude-code
@@ -635,15 +861,15 @@ curl -X POST http://localhost:8080/query \
 
 ### Common Issues
 
-| Issue | Solution |
-|-------|----------|
-| **Container exits immediately** | Check logs: `docker logs claude-code-$(basename "$(pwd)")`. Usually bad OAuth token |
-| **"Unauthorized - Invalid or missing API key"** | Your API key doesn't match. Check: `docker exec claude-code-$(basename "$(pwd)") env | grep CLAUDE_AGENT_SDK_CONTAINER` |
-| **Connection refused on port 8080** | Container not running. Check: `docker ps`. Restart: `docker start claude-code-$(basename "$(pwd)")` |
-| **Quotes in environment variables** | Remove ALL quotes from .env file. Docker doesn't strip them! |
-| **"unhealthy" status** | OAuth token is wrong. Get correct one with: `claude setup-token` |
-| **Works locally but not from other container** | Use `host.docker.internal:8080` instead of `localhost:8080` |
-| **Changes to .env not working** | Must restart container: `docker restart claude-code-$(basename "$(pwd)")` |
+| Issue                                           | Solution                                                                                            |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------- |
+| **Container exits immediately**                 | Check logs: `docker logs claude-code-$(basename "$(pwd)")`. Usually bad OAuth token                 |
+| **"Unauthorized - Invalid or missing API key"** | Your API key doesn't match. Check: `docker exec claude-code-$(basename "$(pwd)") env                | grep CLAUDE_AGENT_SDK_CONTAINER` |
+| **Connection refused on port 8080**             | Container not running. Check: `docker ps`. Restart: `docker start claude-code-$(basename "$(pwd)")` |
+| **Quotes in environment variables**             | Remove ALL quotes from .env file. Docker doesn't strip them!                                        |
+| **"unhealthy" status**                          | OAuth token is wrong. Get correct one with: `claude setup-token`                                    |
+| **Works locally but not from other container**  | Use `host.docker.internal:8080` instead of `localhost:8080`                                         |
+| **Changes to .env not working**                 | Must restart container: `docker restart claude-code-$(basename "$(pwd)")`                           |
 
 ## Updating Claude Agent SDK
 
